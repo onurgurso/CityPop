@@ -5,10 +5,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  logo: {
-    width: "150px",
-    height: "50px",
-    alignSelf: "center",
+  header: {
+    padding: 30,
+    alignSelf: "flex-start",
+    fontFamily: "raleway-bold",
+    fontSize: 32,
   },
   imageBackground: {
     flex: 1,

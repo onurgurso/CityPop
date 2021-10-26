@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import Input from "../components/Input";
+import { elements } from "../styles/elements";
 
 interface Props {
   navigation: StackNavigationProp;
@@ -18,6 +19,9 @@ export default function SearchScreen({ navigation }: Props) {
   const [search, setSearch] = useState("");
   const [fetchdata, setFetchdata] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const arrowIcon = require("../assets/arrow_forward.png");
+  const chevron = require("../assets/white.png");
 
   const searchType: keyof typeof types = navigation.getParam("searchType");
 
@@ -47,7 +51,7 @@ export default function SearchScreen({ navigation }: Props) {
       .then((data) => {
         setFetchdata(sortByPopulation(data.geonames));
         setLoading(false);
-      });
+      })
       .catch((err) => {
         console.error(err);
       });
@@ -60,7 +64,6 @@ export default function SearchScreen({ navigation }: Props) {
     }
     let timer = setTimeout(function () {
       fetchData();
-      console.log(search);
     }, 300);
     return () => {
       setLoading(true);
@@ -69,8 +72,9 @@ export default function SearchScreen({ navigation }: Props) {
   }, [search]);
 
   return (
-    <View>
-      <View style={{ position: "relative" }}>
+    <View style={elements.container}>
+      <Text style={elements.header}>{activeType.title}</Text>
+      <View style={(elements.boxShadow, { width: "90%", alignSelf: "center" })}>
         <Input
           inputLabel={activeType.title}
           placeholder={`Enter a ${searchType}`}
@@ -80,7 +84,7 @@ export default function SearchScreen({ navigation }: Props) {
         {loading && (
           <ActivityIndicator
             size="small"
-            style={{ position: "absolute", top: "50%", right: 0 }}
+            style={{ position: "absolute", top: "40%", right: 5 }}
           />
         )}
       </View>
@@ -96,12 +100,6 @@ export default function SearchScreen({ navigation }: Props) {
               onPress={() =>
                 navigation.navigate("List", { searchTerm: search })
               }
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: 10,
-              }}
             >
               <Text>{item.toponymName}</Text>
               <Text style={{ color: "#a5a5a5" }}>{item.countryName}</Text>
@@ -110,10 +108,12 @@ export default function SearchScreen({ navigation }: Props) {
         />
       )}
 
-      <Button
-        title="Search"
+      <TouchableOpacity
+        style={elements.button}
         onPress={() => navigation.navigate("List", { searchTerm: search })}
-      />
+      >
+        Search
+      </TouchableOpacity>
     </View>
   );
 }

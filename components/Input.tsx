@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { TextInput, View, Text, StyleSheet } from "react-native";
 
@@ -11,14 +11,23 @@ interface Props {
 const styles = StyleSheet.create({
   inputStyle: {
     color: "#000",
-    padding: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
     fontSize: 18,
-    flex: 1,
-    height: 50,
+    // width: 260,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 6.27,
+    elevation: 10,
+    borderRadius: 4,
   },
   labelStyle: {
     fontSize: 18,
-    paddingLeft: 10,
+    paddingLeft: 20,
     flex: 1,
   },
   containerStyle: {
@@ -28,15 +37,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Input({
-  inputLabel,
-  placeholder,
-  value,
-  setValue,
-}: Props) {
+export default function Input({ placeholder, value, setValue }: Props) {
   return (
     <View style={styles.containerStyle}>
-      <Text style={styles.labelStyle}>{inputLabel}</Text>
       <TextInput
         style={styles.inputStyle}
         autoCorrect={false}

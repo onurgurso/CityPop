@@ -1,14 +1,16 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
-  view: {
+export const elements = StyleSheet.create({
+  container: {
     flex: 1,
     flexDirection: "column",
+    backgroundColor: "#fff",
   },
-  logo: {
-    width: "150px",
-    height: "50px",
-    alignSelf: "center",
+  header: {
+    padding: 30,
+    alignSelf: "flex-start",
+    fontFamily: "raleway-bold",
+    fontSize: 32,
   },
   imageBackground: {
     flex: 1,
@@ -24,12 +26,23 @@ export const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 5,
     alignSelf: "center",
+    fontFamily: "raleway-bold",
+    textTransform: "uppercase",
   },
   buttonText: {
     fontFamily: "raleway-bold",
     color: "white",
     textTransform: "uppercase",
+  },
+  boxShadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });
