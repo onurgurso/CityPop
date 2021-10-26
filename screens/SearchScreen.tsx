@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import Input from "../components/Input";
 
@@ -9,7 +16,7 @@ interface Props {
 
 export default function SearchScreen({ navigation }: Props) {
   const [search, setSearch] = useState("");
-  const [responseData, setResponseData] = useState([]);
+  const [fetchdata, setFetchdata] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const searchType: keyof typeof types = navigation.getParam("searchType");
@@ -17,12 +24,12 @@ export default function SearchScreen({ navigation }: Props) {
   const username = "weknowit";
   const types = {
     city: {
-      title: "Search by city",
-      apiUrl: `http://api.geonames.org/searchJSON?username=${username}&q=${search}&maxRows=10&orderby=population&isNameRequired=true&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLC`,
+      title: "Search By City",
+      apiUrl: `http://api.geonames.org/searchJSON?username=${username}&q=${search}&cities1500&maxRows=10&orderby=relevence&featureCode=PPLA&featureCode=PPLC`,
     },
     country: {
-      title: "Search by country",
-      apiUrl: `http://api.geonames.org/searchJSON?username=${username}&q=${search}&maxRows=10&orderby=relevence&featureCode=PPLC&featureCode=PPLA`, //förbättra queries
+      title: "Search By Country",
+      apiUrl: `http://api.geonames.org/searchJSON?username=${username}&q=${search}&maxRows=10&orderby=relevence&featureCode=PPLC&featureCode=PPLA`,
     },
   };
   let activeType = types[searchType];
@@ -38,9 +45,9 @@ export default function SearchScreen({ navigation }: Props) {
     fetch(activeType.apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        setResponseData(sortByPopulation(data.geonames));
+        setFetchdata(sortByPopulation(data.geonames));
         setLoading(false);
-      })
+      });
       .catch((err) => {
         console.error(err);
       });
@@ -53,6 +60,7 @@ export default function SearchScreen({ navigation }: Props) {
     }
     let timer = setTimeout(function () {
       fetchData();
+      console.log(search);
     }, 300);
     return () => {
       setLoading(true);
@@ -62,18 +70,49 @@ export default function SearchScreen({ navigation }: Props) {
 
   return (
     <View>
-      <Input
-        inputLabel={activeType.title}
-        placeholder="Enter a city"
-        value={search}
-        setValue={setSearch}
-      />
+      <View style={{ position: "relative" }}>
+        <Input
+          inputLabel={activeType.title}
+          placeholder={`Enter a ${searchType}`}
+          value={search}
+          setValue={setSearch}
+        />
+        {loading && (
+          <ActivityIndicator
+            size="small"
+            style={{ position: "absolute", top: "50%", right: 0 }}
+          />
+        )}
+      </View>
+      {!loading && fetchdata && (
+        <FlatList
+          data={fetchdata}
+          renderItem={({
+            item,
+          }: {
+            item: { toponymName: string; countryName: string };
+          }) => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("List", { searchTerm: search })
+              }
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: 10,
+              }}
+            >
+              <Text>{item.toponymName}</Text>
+              <Text style={{ color: "#a5a5a5" }}>{item.countryName}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
 
       <Button
         title="Search"
-        onPress={() =>
-          navigation.navigate("List", { searchResult: responseData })
-        }
+        onPress={() => navigation.navigate("List", { searchTerm: search })}
       />
     </View>
   );
