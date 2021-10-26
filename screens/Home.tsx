@@ -1,4 +1,5 @@
 import React from "react";
+import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import {
   View,
   Text,
@@ -8,7 +9,11 @@ import {
 } from "react-native";
 import { styles } from "../styles/homeStyles";
 
-export default function Home({ navigation }) {
+interface Props {
+  navigation: StackNavigationProp;
+}
+
+export default function Home({ navigation }: Props) {
   const Logo = require("../assets/CityPop.svg");
   const BackgroundImage = require("../assets/background.png");
 
@@ -23,13 +28,17 @@ export default function Home({ navigation }) {
         <View style={styles.viewBar}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("Search")}
+            onPress={() =>
+              navigation.navigate("Search", { searchType: "city" })
+            }
           >
             <Text style={styles.buttonText}>Search by city</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("Search")}
+            onPress={() =>
+              navigation.navigate("Search", { searchType: "country" })
+            }
           >
             <Text style={styles.buttonText}>Search by country</Text>
           </TouchableOpacity>
