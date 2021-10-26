@@ -25,7 +25,7 @@ export default function Home({ navigation }: Props) {
         style={styles.imageBackground}
       >
         <Image source={Logo} style={styles.logo} resizeMode="contain" />
-        <View>
+        <View style={styles.viewBar}>
           <TouchableOpacity
             style={styles.button}
             onPress={() =>

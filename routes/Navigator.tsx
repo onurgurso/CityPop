@@ -26,7 +26,7 @@ const HomeStack = createStackNavigator(mainScreens, {
   defaultNavigationOptions: {
     title: "CityPop",
     headerTintColor: "#2934D0",
-    headerTitleStyle: { fontSize: 22 },
+    headerTitleStyle: { fontSize: 22, fontFamily: "righteous-regular" },
   },
 });
 
