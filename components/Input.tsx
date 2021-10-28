@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet } from "react-native";
 
 interface Props {
   inputLabel: string;
@@ -11,29 +11,13 @@ interface Props {
 const styles = StyleSheet.create({
   inputStyle: {
     color: "#000",
-    paddingVertical: 20,
-    paddingHorizontal: 15,
-    fontSize: 18,
-    // width: 260,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.24,
-    shadowRadius: 6.27,
-    elevation: 10,
-    borderRadius: 4,
-  },
-  labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
     flex: 1,
+    height: "100%",
+    padding: 18,
+    fontSize: 18,
   },
   containerStyle: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
   },
 });
 

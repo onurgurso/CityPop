@@ -1,12 +1,6 @@
 import React from "react";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import { styles } from "../styles/homeStyles";
 
 interface Props {
@@ -14,7 +8,6 @@ interface Props {
 }
 
 export default function Home({ navigation }: Props) {
-  const Logo = require("../assets/CityPop.svg");
   const BackgroundImage = require("../assets/background.png");
 
   return (
@@ -24,9 +17,10 @@ export default function Home({ navigation }: Props) {
         resizeMode="cover"
         style={styles.imageBackground}
       >
-        <Image source={Logo} style={styles.logo} resizeMode="contain" />
+        <Text style={styles.logo}>CityPop</Text>
         <View>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={styles.button}
             onPress={() =>
               navigation.navigate("Search", { searchType: "city" })
@@ -35,6 +29,7 @@ export default function Home({ navigation }: Props) {
             <Text style={styles.buttonText}>Search by city</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={styles.button}
             onPress={() =>
               navigation.navigate("Search", { searchType: "country" })
