@@ -1,10 +1,25 @@
 import React from "react";
+import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import { View, Text } from "react-native";
+import { elements } from "./../styles/elements";
 
-export default function ResultScreen() {
+interface Props {
+  navigation: StackNavigationProp;
+}
+
+export default function ResultScreen({ navigation }: Props) {
+  const selectedItem = navigation.getParam("SelectedItem");
+
   return (
-    <View>
-      <Text>Result Screen</Text>
+    <View style={elements.container}>
+      <View style={{ flexDirection: "column" }}>
+        <Text style={elements.header}>{selectedItem.toponymName}</Text>
+        <Text style={elements.headerTwo}>{selectedItem.countryName}</Text>
+      </View>
+      <View style={elements.resultCard}>
+        <Text style={elements.cardHeader}>Population</Text>
+        <Text style={elements.cardContent}>{selectedItem.population}</Text>
+      </View>
     </View>
   );
 }
