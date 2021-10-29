@@ -7,6 +7,7 @@ import ResultScreen from "../screens/ResultScreen";
 import SearchScreen from "../screens/SearchScreen";
 
 const componentSwitch = {
+  // Routes to switch between
   Search: { screen: SearchScreen },
   List: { screen: ListScreen },
   Result: { screen: ResultScreen },
@@ -14,14 +15,16 @@ const componentSwitch = {
 
 const Switch = createSwitchNavigator(componentSwitch);
 
+// the default routes- it takes the switch navigation screens as the second route
 const mainScreens = {
   Home: {
     screen: Home,
     navigationOptions: { headerShown: false },
   },
-  Switchables: Switch,
+  Switchables: Switch, //screens that are switched.
 };
 
+//default style options for the main navigation stack
 const HomeStack = createStackNavigator(mainScreens, {
   defaultNavigationOptions: {
     title: "CityPop",

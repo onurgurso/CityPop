@@ -4,9 +4,9 @@
     "slug": "CityPop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/CityPop-Splash.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/CityPop-Splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/CityPop-Splash.png",
+        "backgroundColor": "#505A7C"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/CityPop-Splash.png"
     }
   }
 }

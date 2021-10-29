@@ -5,7 +5,7 @@ import Input from "../components/Input";
 import List from "../components/List";
 import { ArrowIcon } from "../assets/svg";
 import { elements } from "./../styles/elements";
-import { sortByPopulation } from "./globalFunctions";
+import { sortByPopulation } from "../globalFunctions";
 
 interface Props {
   navigation: StackNavigationProp;
@@ -20,7 +20,7 @@ export default function SearchScreen({ navigation }: Props) {
   const searchType: keyof typeof types = navigation.getParam("searchType");
 
   const APIusername = "weknowit";
-
+  //options for searchscreen
   const types = {
     city: {
       title: "Search By City",
@@ -33,7 +33,7 @@ export default function SearchScreen({ navigation }: Props) {
       API_URL: `http://api.geonames.org/searchJSON?username=${APIusername}&q=${search}&orderby=relevence&maxRows=10&featureCode=PCLI&featureCode=ADM1&featureCode=PCL&isNameRequired=true`,
     },
   };
-
+  //current option
   let activeType = types[searchType];
 
   const fetchData = () => {
@@ -42,7 +42,7 @@ export default function SearchScreen({ navigation }: Props) {
       .then((data) => {
         setResponseData(sortByPopulation(data.geonames));
         setLoading(false);
-        if (responseData.length < 1) {
+        if (data.geonames.length < 1) {
           setError(true);
         } else {
           setError(false);
@@ -55,13 +55,13 @@ export default function SearchScreen({ navigation }: Props) {
   };
 
   useEffect(() => {
+    //use timer to create a timespan before function is run to decrease the amount of requests done.
     if (!search) {
       setLoading(false);
       return;
     }
     let timer = setTimeout(function () {
       fetchData();
-      console.log(responseData);
     }, 300);
     return () => {
       setLoading(true);
@@ -110,7 +110,7 @@ export default function SearchScreen({ navigation }: Props) {
           </TouchableOpacity>
         )}
       </View>
-      {error && (
+      {error && ( // error message
         <Text style={{ alignSelf: "center", padding: 30 }}>
           The {searchType} was not found.
         </Text>

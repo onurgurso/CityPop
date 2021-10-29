@@ -2,6 +2,7 @@ import React from "react";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
 import { View, Text } from "react-native";
 import { elements } from "./../styles/elements";
+import { numberFormatter } from "../globalFunctions";
 
 interface Props {
   navigation: StackNavigationProp;
@@ -10,6 +11,7 @@ interface Props {
 export default function ResultScreen({ navigation }: Props) {
   const selectedItem = navigation.getParam("SelectedItem");
 
+  //show screen with city and its population
   return (
     <View style={elements.container}>
       <View style={elements.headerGroupContainer}>
@@ -19,7 +21,7 @@ export default function ResultScreen({ navigation }: Props) {
       <View style={elements.resultCard}>
         <Text style={elements.cardHeader}>Population</Text>
         <Text style={elements.cardContent}>
-          {selectedItem.population.toLocaleString()}
+          {numberFormatter(selectedItem.population)}
         </Text>
       </View>
     </View>

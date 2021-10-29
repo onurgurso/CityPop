@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
-import { sortByPopulation } from "./globalFunctions";
+import { sortByPopulation } from "../globalFunctions";
 import List from "./../components/List";
 import { elements } from "./../styles/elements";
 
@@ -27,7 +27,10 @@ export default function ListScreen({ navigation }: Props) {
 
   return (
     <View style={elements.container}>
-      <Text style={elements.header}>{selectedItem.name}</Text>
+      <View style={elements.headerGroupContainer}>
+        <Text style={elements.headerGroupOne}>{selectedItem.name}</Text>
+        <Text style={elements.headerGroupTwo}>Most Populated Cities</Text>
+      </View>
       <List
         data={responseData}
         activeType={activeType}

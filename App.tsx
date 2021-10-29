@@ -4,6 +4,7 @@ import Navigator from "./routes/Navigator";
 
 export default function App() {
   const [loaded] = useFonts({
+    //custom fonts setup
     "raleway-bold": require("./assets/fonts/Raleway-Bold.ttf"),
     "raleway-regular": require("./assets/fonts/Raleway-Regular.ttf"),
     "righteous-regular": require("./assets/fonts/Righteous-Regular.ttf"),

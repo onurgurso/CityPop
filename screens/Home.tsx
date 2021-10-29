@@ -9,7 +9,7 @@ interface Props {
 
 export default function Home({ navigation }: Props) {
   const BackgroundImage = require("../assets/background.png");
-
+  //show two options passing type to search screen using navigation
   return (
     <View style={styles.view}>
       <ImageBackground
