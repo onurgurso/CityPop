@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import List from "../components/List";
 import { ArrowIcon } from "../assets/svg";
 import { elements } from "./../styles/elements";
+import { sortByPopulation } from "./globalFunctions";
 
 interface Props {
   navigation: StackNavigationProp;
@@ -17,14 +18,14 @@ export default function SearchScreen({ navigation }: Props) {
   const [error, setError] = useState(false);
 
   const searchType: keyof typeof types = navigation.getParam("searchType");
-  // const APIusername = "weknowit";
-  const APIusername = "ksuhiyp";
+
+  const APIusername = "weknowit";
 
   const types = {
     city: {
       title: "Search By City",
       screen: "Result",
-      API_URL: `http://api.geonames.org/searchJSON?username=${APIusername}&q=${search}&cities1500&maxRows=10&orderby=relevence&featureCode=PPLA&featureCode=PPLC&&featureCode=PPL&isNameRequired=true`,
+      API_URL: `http://api.geonames.org/searchJSON?username=${APIusername}&q=${search}&cities1000&maxRows=10&orderby=relevence&featureCode=PPLA&featureCode=PPLC&&featureCode=PPL&isNameRequired=true`,
     },
     country: {
       title: "Search By Country",
@@ -35,21 +36,16 @@ export default function SearchScreen({ navigation }: Props) {
 
   let activeType = types[searchType];
 
-  const sortByPopulation = (array: []) => {
-    return array.sort(
-      (a: { population: number }, b: { population: number }) =>
-        b.population - a.population
-    );
-  };
-
   const fetchData = () => {
     fetch(activeType.API_URL)
       .then((response) => response.json())
       .then((data) => {
         setResponseData(sortByPopulation(data.geonames));
         setLoading(false);
-        if (data.length < 1) {
+        if (responseData.length < 1) {
           setError(true);
+        } else {
+          setError(false);
         }
       })
       .catch((err) => {
@@ -93,12 +89,32 @@ export default function SearchScreen({ navigation }: Props) {
           <TouchableOpacity
             activeOpacity={0.8}
             style={elements.arrowIcon}
-            onPress={() => navigation.navigate("List", { searchTerm: search })}
+            onPress={() => {
+              if (responseData.length == 0) {
+                setError(true);
+              } else {
+                setError(false);
+                navigation.navigate(activeType.screen, {
+                  //parameters thats needed in the next screen
+                  SelectedItem: responseData[0],
+                  SearchTerm: search,
+                  Types: types,
+                  ActiveType: activeType,
+                  SetError: setError,
+                  SetLoading: setLoading,
+                });
+              }
+            }}
           >
             <ArrowIcon />
           </TouchableOpacity>
         )}
       </View>
+      {error && (
+        <Text style={{ alignSelf: "center", padding: 30 }}>
+          The {searchType} was not found.
+        </Text>
+      )}
       {!loading && responseData && (
         <List
           data={responseData}
@@ -106,7 +122,6 @@ export default function SearchScreen({ navigation }: Props) {
           navigation={navigation}
         />
       )}
-      {error && <Text>The {searchType} was not found.</Text>}
     </View>
   );
 }
