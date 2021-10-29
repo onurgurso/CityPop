@@ -13,10 +13,20 @@ export const elements = StyleSheet.create({
     fontFamily: "raleway-bold",
     fontSize: 32,
   },
-  headerTwo: {
+  headerGroupContainer: {
+    flexDirection: "column",
+    padding: 30,
+  },
+  headerGroupOne: {
+    alignSelf: "flex-start",
+    fontFamily: "raleway-bold",
+    fontSize: 32,
+  },
+  headerGroupTwo: {
     alignSelf: "flex-start",
     fontFamily: "raleway-bold",
     fontSize: 18,
+    color: "#0048ff81",
   },
   imageBackground: {
     flex: 1,
@@ -71,7 +81,7 @@ export const elements = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
+    padding: 30,
   },
 
   flatItemLeft: {
