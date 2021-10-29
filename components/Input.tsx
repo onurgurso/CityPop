@@ -30,6 +30,7 @@ export default function Input({ placeholder, value, setValue }: Props) {
         placeholder={placeholder}
         onChangeText={setValue}
         value={value}
+        returnKeyType="done"
       />
     </View>
   );

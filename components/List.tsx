@@ -22,16 +22,20 @@ export default function List({
       renderItem={({
         item,
       }: {
-        item: { toponymName: string; countryName: string };
+        item: { name: string; countryName: string };
       }) => (
         <TouchableOpacity
           activeOpacity={0.8}
           style={elements.flatItem}
           onPress={() =>
-            navigation.navigate(activeType.screen, { SelectedItem: item })
+            navigation.navigate(activeType.screen, {
+              SelectedItem: item,
+            })
           }
         >
-          <Text style={elements.flatTextOne}>{item.toponymName}</Text>
+          <Text style={elements.flatTextOne}>
+            {item.name.toLocaleUpperCase()}
+          </Text>
           <View style={elements.flatItemLeft}>
             <Text style={elements.flatTextTwo}>{item.countryName}</Text>
             <ChevronIcon />
