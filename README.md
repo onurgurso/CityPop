@@ -51,10 +51,10 @@ To setup this project locally you may follow the installation steps below.
 
 ## Usage
 
-  After completing the steps above use the app you need to have a Android device/Emulator or IOS Simulator
+  After completing the steps above you need to have a Android device/Emulator or IOS Simulator to use the app.
    - With an android device - Download Expo Go app and scan the QR code from your device after this step.
    - Android Emulator - Make sure you have your emulator up and runing before choose this alternative after this step.
-   - On the Web - The easiest alternative to get started with (not recommended - use the above altertives for best experience.)
+   - On the Web - The easiest alternative to get started with (not recommended - use the above altertives for best experience)
 
 ## Contact
 
